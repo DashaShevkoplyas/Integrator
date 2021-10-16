@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>org.example</groupId>
+    <artifactId>Integrator</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <dependencies>
+        <dependency>
+            <groupId>net.sourceforge.owlapi</groupId>
+            <artifactId>owlapi-distribution</artifactId>
+            <version>5.1.0</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/edu.stanford.protege/protege-editor-core -->
+        <dependency>
+            <groupId>edu.stanford.protege</groupId>
+            <artifactId>protege-editor-core</artifactId>
+            <version>5.5.0</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/edu.stanford.protege/org.protege.editor.owl -->
+        <dependency>
+            <groupId>edu.stanford.protege</groupId>
+            <artifactId>org.protege.editor.owl</artifactId>
+            <version>5.0.0-beta-17</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/edu.stanford.protege/org.coode.owlviz -->
+        <dependency>
+            <groupId>edu.stanford.protege</groupId>
+            <artifactId>org.coode.owlviz</artifactId>
+            <version>4.1.5</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/edu.stanford.protege/org.protege.ontograf -->
+        <dependency>
+            <groupId>edu.stanford.protege</groupId>
+            <artifactId>org.protege.ontograf</artifactId>
+            <version>1.0.3</version>
+        </dependency>
+    </dependencies>
+
+
+</project>
