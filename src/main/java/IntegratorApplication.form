@@ -24,7 +24,7 @@
         <properties/>
         <border type="none"/>
         <children>
-          <component id="66a81" class="javax.swing.JButton" binding="importButton">
+          <component id="66a81" class="javax.swing.JButton" binding="importFileButton">
             <constraints>
               <splitpane position="left"/>
             </constraints>
@@ -42,8 +42,20 @@
             <properties>
               <minimumSize width="100" height="680"/>
             </properties>
-            <border type="none"/>
-            <children/>
+            <border type="none" title=""/>
+            <children>
+              <component id="2ce5d" class="javax.swing.JLabel" binding="messageLabel">
+                <constraints border-constraint="North"/>
+                <properties>
+                  <enabled value="true"/>
+                  <text value=""/>
+                </properties>
+              </component>
+              <component id="d1d1a" class="javax.swing.JTextField" binding="textField">
+                <constraints border-constraint="Center"/>
+                <properties/>
+              </component>
+            </children>
           </grid>
         </children>
       </splitpane>
