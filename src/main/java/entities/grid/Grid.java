@@ -6,6 +6,14 @@ import entities.grid.elements.Elements;
 import entities.grid.ratings.Ratings;
 
 public class Grid {
+    @JsonProperty("id")
+    private int id;
+    @JsonProperty("images")
+    private String images;
+    @JsonProperty("xmlns:noNameSpaceLocation")
+    private String spaceLocation;
+    @JsonProperty("xmlns:xsi")
+    private String xsi;
     @JsonProperty("header")
     private Header header;
     @JsonProperty("elements")
@@ -14,6 +22,34 @@ public class Grid {
     private Constructs constructs;
     @JsonProperty("ratings")
     private Ratings ratings;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getSpaceLocation() {
+        return spaceLocation;
+    }
+
+    public void setSpaceLocation(String spaceLocation) {
+        this.spaceLocation = spaceLocation;
+    }
+
+    public String getXsi() {
+        return xsi;
+    }
+
+    public void setXsi(String xsi) {
+        this.xsi = xsi;
+    }
+
+    public void setImages(String images) {
+        this.images = images;
+    }
 
     public Header getHeader() {
         return header;
@@ -45,5 +81,9 @@ public class Grid {
 
     public void setRatings(Ratings ratings) {
         this.ratings = ratings;
+    }
+
+    public String getImages() {
+        return images;
     }
 }

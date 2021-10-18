@@ -11,6 +11,7 @@ public class RunApplication {
         frame.setContentPane(integratorApplication.getIntegrator());
         frame.setPreferredSize(new Dimension(Toolkit.getDefaultToolkit().getScreenSize()));
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        JFrame.setDefaultLookAndFeelDecorated(true);
         frame.pack();
         frame.setVisible(true);
     }

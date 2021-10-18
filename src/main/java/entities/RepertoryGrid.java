@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import entities.grid.Grid;
 
-@JsonIgnoreProperties(ignoreUnknown = true)
 public class RepertoryGrid {
     @JsonProperty("grid")
     private Grid grid;

@@ -1,28 +1,21 @@
-
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import entities.RepertoryGrid;
-import entities.grid.elements.Element;
-import org.json.JSONObject;
-import org.json.XML;
+import entities.grid.Grid;
+import importer.PreprocessRGInterview;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.event.ActionEvent;
+import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.List;
-import java.util.stream.Collectors;
 
 public class IntegratorApplication {
-    private static final String FILE_PATH = "C:\\RG";
+    private static final String FILE_PATH = "C:\\";
     private JPanel integrator;
     private JButton importFileButton;
     private JButton createDiagram;
     private JPanel diagram;
-    private JProgressBar progressBar1;
     private JLabel messageLabel;
     private JTextField textField;
     private JFileChooser openFile;
@@ -44,14 +37,23 @@ public class IntegratorApplication {
         setUpFileChooser();
         int returnValue = openFile.showOpenDialog(null);
         if (returnValue == JFileChooser.APPROVE_OPTION) {
-            File selectedFile = openFile.getSelectedFile();
-            messageLabel.setText("Selected file: " + selectedFile.getName());
-            preprocessImport(selectedFile);
-            createDiagram.setEnabled(true);
-        } else {
-            JOptionPane.showMessageDialog(null, "Import error.", "Error", JOptionPane.ERROR_MESSAGE);
-            messageLabel.setText("File was not selected!");
-        }
+            Grid proceededRG = selectRGFileAndReturnProcessed().getGrid();
+            if (proceededRG == null) {
+                createDiagram.setEnabled(false);
+                JOptionPane.showMessageDialog(null, "Import error: RG is null", "Error", JOptionPane.ERROR_MESSAGE);
+            }else {
+                JOptionPane.showMessageDialog(null, "Successfully imported!", "Success", JOptionPane.INFORMATION_MESSAGE);
+                createDiagram.setEnabled(true);
+            }
+        } else messageLabel.setText("File was not selected!");
+
+    }
+
+    private RepertoryGrid selectRGFileAndReturnProcessed() {
+        File selectedFile = openFile.getSelectedFile();
+        messageLabel.setText("Selected file: " + selectedFile.getName());
+        PreprocessRGInterview preprocessRGInterview = new PreprocessRGInterview();
+        return preprocessRGInterview.preprocessRG(selectedFile, createDiagram);
     }
 
     private void setUpFileChooser() {
@@ -60,48 +62,17 @@ public class IntegratorApplication {
         openFile.setFileFilter(new FileNameExtensionFilter("XML files", "xml"));
     }
 
-    private void preprocessImport(File file) {
-        int character;
-        StringBuilder builder = new StringBuilder();
-        try {
-            FileInputStream inputStream = new FileInputStream(file);
-            while ((character = inputStream.read()) != -1) {
-                builder.append((char) character);
-            }
-            inputStream.close();
-
-            List<String> elementIds = mapToRepertoryGridClass(builder.toString()).getGrid().getElements().getElements().stream().map(Element::getContent).collect(Collectors.toList());
-            textField.setText(elementIds.toString());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        JOptionPane.showMessageDialog(null, "Successfully imported!", "Success", JOptionPane.INFORMATION_MESSAGE);
-    }
-
-    private RepertoryGrid mapToRepertoryGridClass(String xmlData) {
-        try {
-            ObjectMapper objectMapper = configureObjectMapper();
-            return objectMapper.readValue(covertXmlToJson(xmlData), RepertoryGrid.class);
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-
-    //it's easier to preprocess json file
-    private String covertXmlToJson(String xmlData) {
-        JSONObject jsonObject = XML.toJSONObject(xmlData);
-        return jsonObject.toString(4);
-    }
-
-    private ObjectMapper configureObjectMapper() {
-        ObjectMapper objectMapper = new ObjectMapper();
-        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-        return objectMapper;
-    }
-
     private void createDiagramButtonProcessor() {
-        createDiagram.addActionListener(e -> {});
+        createDiagram.addActionListener(this::displayGraph);
+    }
+
+    private void displayGraph(ActionEvent e){
+        try {
+            BufferedImage image = ImageIO.read(new File("/download.png"));
+            JLabel label = new JLabel(new ImageIcon(image));
+            diagram.add(label);
+        }catch (IOException ex){
+            JOptionPane.showMessageDialog(null, "Unable to load image: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }
 }
