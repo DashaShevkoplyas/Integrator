@@ -8,11 +8,11 @@ public class Constructs {
     @JsonProperty("construct")
     private List<Construct> constructs;
 
-    public List<Construct> getConstructs() {
+    public List<Construct> getConstructsList() {
         return constructs;
     }
 
-    public void setConstructs(List<Construct> constructs) {
+    public void setConstructsList(List<Construct> constructs) {
         this.constructs = constructs;
     }
 }

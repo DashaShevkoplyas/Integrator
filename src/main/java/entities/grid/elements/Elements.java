@@ -8,11 +8,11 @@ public class Elements {
     @JsonProperty("element")
     private List<Element> elements;
 
-    public List<Element> getElements() {
+    public List<Element> getElementList() {
         return elements;
     }
 
-    public void setElements(List<Element> elements) {
+    public void setElementList(List<Element> elements) {
         this.elements = elements;
     }
 }
