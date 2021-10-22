@@ -24,11 +24,11 @@ public class ElicitVariableElements {
         List<Rating> ratingWithoutMinAndMax = filterWithoutMinAndMax();
         for (Construct construct : getConstructs()) {
             variableElements = new ArrayList<>();
-            for (int i = 0; i < ratingWithoutMinAndMax.size() - 1; i++) {
-                if (construct.getId() != ratingWithoutMinAndMax.get(i).getCon_id()) {
+            for (Rating rating : ratingWithoutMinAndMax) {
+                if (construct.getId() != rating.getCon_id()) {
                     continue;
                 }
-                Element variableElement = getElementById(ratingWithoutMinAndMax.get(i).getEle_id());
+                Element variableElement = getElementById(rating.getEle_id());
                 variableElements.add(variableElement);
             }
             variableElementsAndConstructs.put(construct, variableElements);
