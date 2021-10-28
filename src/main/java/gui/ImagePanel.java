@@ -8,7 +8,7 @@ import java.io.File;
 import java.io.IOException;
 
 public class ImagePanel extends JPanel {
-    private static final String PATH = "C:\\Users\\shevk\\IdeaProjects\\Integrator\\src\\main\\resources\\images\\";
+    private static final String PATH = "..\\Integrator\\src\\main\\resources\\images\\";
     private BufferedImage image;
 
     public ImagePanel() {

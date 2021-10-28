@@ -3,6 +3,7 @@ package gui;
 import elicitation.ElicitVariableElements;
 import entities.grid.Grid;
 import importer.PreprocessRGInterview;
+import ontologyProcessing.CreateOntology;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -70,6 +71,8 @@ public class IntegratorApplication {
         ElicitVariableElements elicitVariableElements = new ElicitVariableElements(grid);
         System.out.println(elicitVariableElements.elicitVariableElementsAndConstructs().values());
         displayGraph(e);
+        CreateOntology ontology = new CreateOntology();
+        ontology.createOntology();
     }
 
     private void displayGraph(ActionEvent e) {
