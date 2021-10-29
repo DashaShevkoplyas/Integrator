@@ -3,7 +3,7 @@ package gui;
 import elicitation.ElicitVariableElements;
 import entities.grid.Grid;
 import importer.PreprocessRGInterview;
-import ontologyProcessing.CreateOntology;
+import ontologyCreator.ProcessOntology;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -70,10 +70,9 @@ public class IntegratorApplication {
 
     private void getElicitedMapAndDisplayGraph(ActionEvent e) {
         ElicitVariableElements elicitVariableElements = new ElicitVariableElements(grid);
-        System.out.println(elicitVariableElements.elicitVariableElementsAndConstructs().values());
         displayGraph(e);
-        CreateOntology ontology = new CreateOntology();
-        ontology.createOntology();
+        ProcessOntology ontology = new ProcessOntology();
+        ontology.createOntology(elicitVariableElements.elicitVariableElementsAndConstructs());
         JOptionPane.showMessageDialog(null, "Ontology is created and saved into resources/owlFiles", "Success", JOptionPane.INFORMATION_MESSAGE);
     }
 
