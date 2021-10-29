@@ -7,7 +7,7 @@ import entities.grid.ratings.Ratings;
 
 public class Grid {
     @JsonProperty("id")
-    private int id;
+    private long id;
     @JsonProperty("images")
     private String images;
     @JsonProperty("xmlns:noNameSpaceLocation")
@@ -23,11 +23,11 @@ public class Grid {
     @JsonProperty("ratings")
     private Ratings ratings;
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 

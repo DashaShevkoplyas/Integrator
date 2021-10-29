@@ -13,6 +13,7 @@ import java.io.File;
 
 public class IntegratorApplication {
     private static final String FILE_PATH = "C:\\";
+
     private JPanel integrator;
     private JButton importFileButton;
     private JButton createDiagram;
@@ -73,6 +74,7 @@ public class IntegratorApplication {
         displayGraph(e);
         CreateOntology ontology = new CreateOntology();
         ontology.createOntology();
+        JOptionPane.showMessageDialog(null, "Ontology is created and saved into resources/owlFiles", "Success", JOptionPane.INFORMATION_MESSAGE);
     }
 
     private void displayGraph(ActionEvent e) {

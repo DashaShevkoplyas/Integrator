@@ -6,7 +6,7 @@ public class Pole {
     @JsonProperty("type")
     private String type;
     @JsonProperty("content")
-    private String content;
+    private String poleName;
 
     public String getType() {
         return type;
@@ -16,11 +16,11 @@ public class Pole {
         this.type = type;
     }
 
-    public String getContent() {
-        return content;
+    public String getPoleName() {
+        return poleName;
     }
 
-    public void setContent(String content) {
-        this.content = content;
+    public void setPoleName(String poleName) {
+        this.poleName = poleName;
     }
 }

@@ -12,7 +12,7 @@ public class Ratings {
     @JsonProperty("max")
     private int max;
     @JsonProperty("rating")
-    private List<Rating> ratings;
+    private List<Rating> ratingList;
 
     public String getScale() {
         return scale;
@@ -38,11 +38,11 @@ public class Ratings {
         this.max = max;
     }
 
-    public List<Rating> getRatings() {
-        return ratings;
+    public List<Rating> getRatingList() {
+        return ratingList;
     }
 
-    public void setRatings(List<Rating> ratings) {
-        this.ratings = ratings;
+    public void setRatingList(List<Rating> ratingList) {
+        this.ratingList = ratingList;
     }
 }

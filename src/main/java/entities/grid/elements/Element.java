@@ -6,7 +6,9 @@ public class Element {
     @JsonProperty("id")
     private int id;
     @JsonProperty("content")
-    private String content;
+    private String elementName;
+    @JsonProperty("class")
+    private String elementClass;
 
     public int getId() {
         return id;
@@ -16,11 +18,19 @@ public class Element {
         this.id = id;
     }
 
-    public String getContent() {
-        return content;
+    public String getElementName() {
+        return elementName;
     }
 
-    public void setContent(String content) {
-        this.content = content;
+    public void setElementName(String elementName) {
+        this.elementName = elementName;
+    }
+
+    public String getElementClass() {
+        return elementClass;
+    }
+
+    public void setElementClass(String elementClass) {
+        this.elementClass = elementClass;
     }
 }

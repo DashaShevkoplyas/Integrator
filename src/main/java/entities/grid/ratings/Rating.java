@@ -7,6 +7,8 @@ public class Rating {
     private int ele_id;
     @JsonProperty("con_id")
     private int con_id;
+    @JsonProperty("content")
+    private int rating;
 
     public int getEle_id() {
         return ele_id;
@@ -24,14 +26,11 @@ public class Rating {
         this.con_id = con_id;
     }
 
-    public int getContent() {
-        return content;
+    public int getRating() {
+        return rating;
     }
 
-    public void setContent(int content) {
-        this.content = content;
+    public void setRating(int rating) {
+        this.rating = rating;
     }
-
-    @JsonProperty("content")
-    private int content;
 }

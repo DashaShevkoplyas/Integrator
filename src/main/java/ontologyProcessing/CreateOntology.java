@@ -2,12 +2,19 @@ package ontologyProcessing;
 
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.*;
+import utils.Constants;
 
+import java.io.*;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
 //TODO: refactor by methods separation, logic correction and implementation of usage from RG
 public class CreateOntology {
+    private static final String PATH = Constants.RESOURCES_PATH + "owlFiles\\output";
+    private static final String EXTENSION = ".owl";
+
     public void createOntology() {
         OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
         OWLDataFactory factory = manager.getOWLDataFactory();
@@ -50,11 +57,24 @@ public class CreateOntology {
             AddAxiom addAxiom2 = new AddAxiom(ontology, axiom2);
             manager.applyChange(addAxiom2);
 
-            manager.saveOntology(ontology, System.out);
-        } catch (OWLOntologyCreationException | OWLOntologyStorageException e) {
+            saveOntology(manager, ontology);
+
+        } catch (OWLOntologyCreationException e) {
             e.printStackTrace();
         }
+    }
 
+    private void saveOntology(OWLOntologyManager manager, OWLOntology ontology) {
+        String fileName = PATH + getTimestamp();
+        File file = new File(fileName + EXTENSION);
+        try {
+            manager.saveOntology(ontology, IRI.create(file));
+        } catch (OWLOntologyStorageException e) {
+            e.printStackTrace();
+        }
+    }
 
+    private String getTimestamp() {
+        return new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss").format(new Date());
     }
 }

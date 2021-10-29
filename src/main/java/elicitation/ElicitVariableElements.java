@@ -40,8 +40,8 @@ public class ElicitVariableElements {
         int min = grid.getRatings().getMin();
         int max = grid.getRatings().getMax();
         List<Rating> ratingWithoutMinAndMax = new ArrayList<>();
-        for (Rating rating : grid.getRatings().getRatings()) {
-            if ((rating.getContent() == max) || (rating.getContent() == min)) {
+        for (Rating rating : grid.getRatings().getRatingList()) {
+            if ((rating.getRating() == max) || (rating.getRating() == min)) {
                 continue;
             }
             ratingWithoutMinAndMax.add(rating);
