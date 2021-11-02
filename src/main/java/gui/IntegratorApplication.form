@@ -35,7 +35,7 @@
               <text value="Import repertory grid xml file"/>
             </properties>
           </component>
-          <grid id="db2f1" binding="diagram" layout-manager="BorderLayout" hgap="0" vgap="0">
+          <grid id="db2f1" binding="descriptionPanel" layout-manager="BorderLayout" hgap="0" vgap="0">
             <constraints>
               <splitpane position="right"/>
             </constraints>
@@ -51,11 +51,15 @@
                   <text value=""/>
                 </properties>
               </component>
+              <component id="dad05" class="javax.swing.JTextArea" binding="fodaDescription">
+                <constraints border-constraint="Center"/>
+                <properties/>
+              </component>
             </children>
           </grid>
         </children>
       </splitpane>
-      <component id="b5080" class="javax.swing.JButton" binding="createDiagram">
+      <component id="b5080" class="javax.swing.JButton" binding="createFODADescription">
         <constraints>
           <grid row="1" column="0" row-span="1" col-span="2" vsize-policy="7" hsize-policy="7" anchor="1" fill="1" indent="0" use-parent-layout="false">
             <minimum-size width="1" height="1"/>
@@ -63,7 +67,7 @@
         </constraints>
         <properties>
           <enabled value="false"/>
-          <text value="Create FODA diagram"/>
+          <text value="Create FODA - model description"/>
           <visible value="true"/>
         </properties>
       </component>

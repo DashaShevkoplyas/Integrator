@@ -4,6 +4,7 @@ import entities.grid.constructs.Construct;
 import entities.grid.constructs.Pole;
 import entities.grid.elements.Element;
 import org.semanticweb.owlapi.apibinding.OWLManager;
+import org.semanticweb.owlapi.io.StringDocumentTarget;
 import org.semanticweb.owlapi.model.*;
 import utils.Constants;
 
@@ -13,7 +14,6 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class TranslateToOWL {
-    private static final String PATH = Constants.RESOURCES_PATH + "owlFiles\\output";
     private static final String EXTENSION = ".owl";
     private static final String NS = "http://example.org/";
 
@@ -27,7 +27,7 @@ public class TranslateToOWL {
         axioms = new HashSet<>();
     }
 
-    public void translateToOWL(Map<Construct, List<Element>> variableElements) {
+    public String translateToOWL(Map<Construct, List<Element>> variableElements) {
         try {
             OWLOntology ontology = manager.createOntology();
             OWLClass device = factory.getOWLClass(IRI.create(NS + "Device"));
@@ -49,11 +49,13 @@ public class TranslateToOWL {
             for (AddAxiom axiom : axioms) {
                 manager.applyChange(axiom);
             }
+            saveOntology(ontology);
 
-            saveOntology(manager, ontology);
+            return getOntologyInStringFormat(ontology);
         } catch (OWLOntologyCreationException e) {
             JOptionPane.showMessageDialog(null, "Error while creating ontology: " + e.getMessage(),
                     "Error", JOptionPane.ERROR_MESSAGE);
+            return null;
         }
     }
 
@@ -134,9 +136,9 @@ public class TranslateToOWL {
         }
     }
 
-    private void saveOntology(OWLOntologyManager manager, OWLOntology ontology) {
-        String fileName = PATH + getTimestamp();
-        File file = new File(fileName + EXTENSION);
+    private void saveOntology(OWLOntology ontology) {
+        String fileName = "FODA - model description" + getTimestamp();
+        File file = fileWithDirectoryAssurance(fileName + EXTENSION);
         try {
             manager.saveOntology(ontology, IRI.create(file));
         } catch (OWLOntologyStorageException e) {
@@ -145,7 +147,26 @@ public class TranslateToOWL {
         }
     }
 
+    private File fileWithDirectoryAssurance(String filename) {
+        File directory = new File(Constants.FODA_MODEL_DESCRIPTION_OUTPUT_PATH);
+        if (!directory.exists()) {
+            directory.mkdir();
+        }
+        return new File(directory + "/" + filename);
+    }
+
     private String getTimestamp() {
         return new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss").format(new Date());
+    }
+
+    private String getOntologyInStringFormat(OWLOntology ontology) {
+        StringDocumentTarget target = new StringDocumentTarget();
+        try {
+            manager.saveOntology(ontology, target);
+        } catch (OWLOntologyStorageException e) {
+            JOptionPane.showMessageDialog(null, "Error while saving ontology: " + e.getMessage(),
+                    "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        return target.toString();
     }
 }

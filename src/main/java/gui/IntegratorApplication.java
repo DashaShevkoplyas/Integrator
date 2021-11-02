@@ -4,10 +4,10 @@ import elicitation.ElicitVariableElements;
 import entities.grid.Grid;
 import importer.PreprocessRGInterview;
 import translation.TranslateToOWL;
+import utils.Constants;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.io.File;
 
@@ -16,10 +16,10 @@ public class IntegratorApplication {
 
     private JPanel integrator;
     private JButton importFileButton;
-    private JButton createDiagram;
-    private JPanel diagram;
+    private JButton createFODADescription;
+    private JPanel descriptionPanel;
     private JLabel messageLabel;
-    private JTextField textField;
+    private JTextArea fodaDescription;
     private JFileChooser openFile;
     private Grid grid;
 
@@ -42,11 +42,11 @@ public class IntegratorApplication {
         if (returnValue == JFileChooser.APPROVE_OPTION) {
             grid = selectRGFileAndReturnProcessed();
             if (grid == null) {
-                createDiagram.setEnabled(false);
+                createFODADescription.setEnabled(false);
                 JOptionPane.showMessageDialog(null, "Import error: RG is null", "Error", JOptionPane.ERROR_MESSAGE);
             } else {
                 JOptionPane.showMessageDialog(null, "Successfully imported!", "Success", JOptionPane.INFORMATION_MESSAGE);
-                createDiagram.setEnabled(true);
+                createFODADescription.setEnabled(true);
             }
         } else messageLabel.setText("File was not selected!");
     }
@@ -55,7 +55,7 @@ public class IntegratorApplication {
         File selectedFile = openFile.getSelectedFile();
         messageLabel.setText("Selected file: " + selectedFile.getName());
         PreprocessRGInterview preprocessRGInterview = new PreprocessRGInterview();
-        return preprocessRGInterview.preprocessRG(selectedFile, createDiagram).getGrid();
+        return preprocessRGInterview.preprocessRG(selectedFile, createFODADescription).getGrid();
     }
 
     private void setUpFileChooser() {
@@ -65,25 +65,25 @@ public class IntegratorApplication {
     }
 
     private void createDiagramButtonProcessor() {
-        createDiagram.addActionListener(this::getElicitedVariableElementsAndDisplayGraph);
+        createFODADescription.addActionListener(this::getElicitedVariableElementsAndDisplayGraph);
     }
 
     private void getElicitedVariableElementsAndDisplayGraph(ActionEvent e) {
-        translateToOWLBasedOnVariableElements();
-        displayGraph(e);
-        JOptionPane.showMessageDialog(null, "Ontology is created and saved into resources/owlFiles", "Success", JOptionPane.INFORMATION_MESSAGE);
+        String fodaModelDescription = translateToOWLBasedOnVariableElements();
+        fodaDescription.setText(fodaModelDescription);
+        addScrollToTextArea();
+        JOptionPane.showMessageDialog(null, "Ontology is created and saved into " + Constants.FODA_MODEL_DESCRIPTION_OUTPUT_PATH,
+                "Success", JOptionPane.INFORMATION_MESSAGE);
     }
 
-    private void translateToOWLBasedOnVariableElements() {
+    private String translateToOWLBasedOnVariableElements() {
         ElicitVariableElements elicitVariableElements = new ElicitVariableElements(grid);
-        TranslateToOWL ontology = new TranslateToOWL();
-        ontology.translateToOWL(elicitVariableElements.elicitVariableElementsAndConstructs());
+        TranslateToOWL owl = new TranslateToOWL();
+        return owl.translateToOWL(elicitVariableElements.elicitVariableElementsAndConstructs());
     }
 
-    private void displayGraph(ActionEvent e) {
-        ImagePanel imagePanel = new ImagePanel();
-        diagram.add(imagePanel, BorderLayout.CENTER);
-        diagram.revalidate();
-        diagram.repaint();
+    private void addScrollToTextArea() {
+        JScrollPane scroll = new JScrollPane(fodaDescription, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        descriptionPanel.add(scroll);
     }
 }
