@@ -71,7 +71,9 @@ public class IntegratorApplication {
     private void getElicitedVariableElementsAndDisplayGraph(ActionEvent e) {
         String fodaModelDescription = translateToOWLBasedOnVariableElements();
         fodaDescription.setText(fodaModelDescription);
+        fodaDescription.update(fodaDescription.getGraphics());
         addScrollToTextArea();
+
         JOptionPane.showMessageDialog(null, "Ontology is created and saved into " + Constants.FODA_MODEL_DESCRIPTION_OUTPUT_PATH,
                 "Success", JOptionPane.INFORMATION_MESSAGE);
     }
