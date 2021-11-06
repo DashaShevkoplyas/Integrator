@@ -81,7 +81,7 @@ public class IntegratorApplication {
     private String translateToOWLBasedOnVariableElements() {
         ElicitVariableElements elicitVariableElements = new ElicitVariableElements(grid);
         TranslateToOWL owl = new TranslateToOWL();
-        return owl.translateToOWL(elicitVariableElements.elicitVariableElementsAndConstructs());
+        return owl.translateToOWL(grid.getHeader().getTopic(), elicitVariableElements.elicitVariableElementsAndConstructs());
     }
 
     private void addScrollToTextArea() {

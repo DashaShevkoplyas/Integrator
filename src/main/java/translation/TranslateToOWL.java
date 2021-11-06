@@ -1,5 +1,6 @@
 package translation;
 
+import entities.grid.Grid;
 import entities.grid.constructs.Construct;
 import entities.grid.constructs.Pole;
 import entities.grid.elements.Element;
@@ -27,10 +28,10 @@ public class TranslateToOWL {
         axioms = new HashSet<>();
     }
 
-    public String translateToOWL(Map<Construct, List<Element>> variableElements) {
+    public String translateToOWL(String topic, Map<Construct, List<Element>> variableElements) {
         try {
             OWLOntology ontology = manager.createOntology();
-            OWLClass device = factory.getOWLClass(IRI.create(NS + "Device"));
+            OWLClass device = factory.getOWLClass(IRI.create(NS + topic));
             OWLClass condition = factory.getOWLClass(IRI.create(NS + "Condition"));
             OWLObjectProperty isA = factory.getOWLObjectProperty(IRI.create(NS + "isA"));
             OWLObjectProperty isUsedInCondition = factory.getOWLObjectProperty(IRI.create(NS + "isUsedInCondition"));
